@@ -1,0 +1,413 @@
+<!DOCTYPE html>
+<html lang="bn" class="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <!-- ফেসবুক CDN থেকে প্রোফাইল ছবি ও ভিডিও লোড নিশ্চিত করতে নো-রেফারার পলিসি -->
+  <meta name="referrer" content="no-referrer" />
+  <title>FBSave Pro - Developed by সাইবার বাংলা 24</title>
+  
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- FontAwesome Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+  
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: { 
+          colors: { 
+            brand: { 
+              fb: '#1877f2', 
+              blue: '#2563eb', 
+              telegram: '#229ED9', 
+              dark: '#0f172a',
+              card: '#1e293b'
+            } 
+          } 
+        }
+      }
+    }
+  </script>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&family=Hind+Siliguri:wght@400;600;700&display=swap');
+    body { font-family: 'Plus Jakarta Sans', 'Hind Siliguri', sans-serif; }
+    .glass-effect { 
+      background: rgba(30, 41, 59, 0.7); 
+      backdrop-filter: blur(14px); 
+      border: 1px solid rgba(255, 255, 255, 0.08); 
+    }
+    .fb-glow {
+      box-shadow: 0 0 25px -5px rgba(24, 119, 242, 0.35);
+    }
+  </style>
+</head>
+<body class="bg-slate-950 text-slate-100 min-h-screen flex flex-col justify-between selection:bg-brand-fb selection:text-white">
+
+  <!-- Header -->
+  <header class="border-b border-slate-800/80 sticky top-0 z-50 glass-effect">
+    <div class="max-w-6xl mx-auto px-4 h-16 flex items-center justify-between">
+      <div class="flex items-center gap-3">
+        <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-blue-600 to-brand-fb text-white flex items-center justify-center font-bold text-xl shadow-lg shadow-brand-fb/30">
+          <i class="fa-brands fa-facebook-f"></i>
+        </div>
+        <div>
+          <span class="text-xl font-bold tracking-tight">FBSave<span class="text-brand-fb">Pro</span></span>
+          <span class="hidden sm:inline-block ml-2 text-[10px] bg-slate-800 text-slate-400 px-2.5 py-0.5 rounded-full border border-slate-700">by সাইবার বাংলা 24</span>
+        </div>
+      </div>
+      
+      <a 
+        href="https://t.me/CyberBangla24" 
+        target="_blank" 
+        class="flex items-center gap-2 text-xs md:text-sm font-semibold bg-brand-telegram/10 hover:bg-brand-telegram text-brand-telegram hover:text-white border border-brand-telegram/30 px-3.5 py-1.5 rounded-xl transition duration-200"
+      >
+        <i class="fa-brands fa-telegram text-base"></i>
+        <span>টেলিগ্রাম চ্যানেল</span>
+      </a>
+    </div>
+  </header>
+
+  <!-- Main Hero Section -->
+  <main class="flex-grow container max-w-4xl mx-auto px-4 py-8 md:py-14">
+    <div class="text-center space-y-4 mb-10">
+      <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-slate-900 border border-slate-800 text-xs text-slate-400">
+        <span class="w-2 h-2 rounded-full bg-blue-500 animate-pulse"></span>
+        অফিসিয়াল API: <span class="text-white font-semibold">সাইবার বাংলা 24</span>
+      </div>
+      <h1 class="text-3xl md:text-5xl font-extrabold tracking-tight">
+        Facebook Video & <span class="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-brand-fb">Reels Downloader</span>
+      </h1>
+      <p class="text-slate-400 max-w-xl mx-auto text-sm md:text-base leading-relaxed">
+        আপনার নিজস্ব হাই-স্পিড API দিয়ে যেকোনো ফেসবুক ভিডিও ও রিলস ফুল HD কোয়ালিটিতে ডাউনলোড করুন একদম ফ্রিতে।
+      </p>
+    </div>
+
+    <!-- Search / Input Card -->
+    <div class="glass-effect p-3 md:p-4 rounded-2xl shadow-2xl fb-glow mb-8">
+      <div class="flex flex-col sm:flex-row items-center gap-3">
+        <div class="relative w-full">
+          <i class="fa-solid fa-link absolute left-4 top-1/2 -translate-y-1/2 text-slate-400"></i>
+          <input 
+            type="text" 
+            id="fbUrl" 
+            placeholder="ফেসবুক ভিডিও বা রিলস এর লিংক পেস্ট করুন..." 
+            class="w-full pl-11 pr-24 py-3.5 bg-slate-900/90 border border-slate-700 rounded-xl text-white placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-brand-fb focus:border-transparent transition text-sm font-medium"
+            onkeypress="if(event.key === 'Enter') startDownloadProcess()"
+          />
+          <button 
+            type="button" 
+            onclick="pasteLink()" 
+            class="absolute right-2.5 top-1/2 -translate-y-1/2 px-3 py-1.5 text-xs font-semibold rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-300 border border-slate-700 transition"
+          >
+            <i class="fa-regular fa-paste mr-1"></i> Paste
+          </button>
+        </div>
+        <button 
+          id="fetchBtn" 
+          onclick="startDownloadProcess()" 
+          class="w-full sm:w-auto px-8 py-3.5 bg-gradient-to-r from-blue-600 to-brand-fb hover:opacity-90 font-bold rounded-xl text-white shadow-lg shadow-brand-fb/25 transition duration-200 flex items-center justify-center gap-2 flex-shrink-0"
+        >
+          <i class="fa-solid fa-download"></i> Get Video
+        </button>
+      </div>
+
+      <div id="errorBox" class="hidden mt-3 p-3 bg-red-500/10 border border-red-500/30 rounded-xl text-red-400 text-xs text-center"></div>
+    </div>
+
+    <!-- Loading Animation -->
+    <div id="loadingBox" class="hidden glass-effect rounded-2xl p-8 text-center space-y-3 mb-8 border border-slate-800">
+      <div class="inline-block animate-spin rounded-full h-10 w-10 border-4 border-slate-800 border-t-brand-fb"></div>
+      <h4 class="text-sm font-semibold text-slate-300">ভিডিওর ডেটা ও প্রোফাইল ছবি লোড হচ্ছে...</h4>
+      <p class="text-xs text-slate-500">অনুগ্রহ করে কয়েক সেকেন্ড অপেক্ষা করুন...</p>
+    </div>
+
+    <!-- Result Card with Real Profile Picture -->
+    <div id="resultCard" class="hidden glass-effect rounded-2xl p-5 sm:p-6 shadow-2xl border border-slate-800 mb-8">
+      <div class="flex flex-col md:flex-row gap-6">
+        
+        <!-- Live Video Preview Player -->
+        <div class="w-full md:w-5/12 flex-shrink-0 rounded-xl overflow-hidden bg-black aspect-video flex items-center justify-center shadow-lg border border-slate-800">
+          <video id="videoPreview" controls class="w-full h-full object-contain"></video>
+        </div>
+
+        <!-- Video Info, Real Avatar & Action Buttons -->
+        <div class="flex-grow flex flex-col justify-between space-y-4">
+          <div class="space-y-3">
+            
+            <!-- Badges Row -->
+            <div class="flex flex-wrap items-center gap-2">
+              <span class="inline-flex items-center gap-1 px-2.5 py-1 bg-emerald-500/10 text-emerald-400 text-xs font-bold rounded-lg border border-emerald-500/20">
+                <i class="fa-solid fa-circle-check"></i> প্রস্তুত
+              </span>
+              <span id="contentTypeBadge" class="inline-flex items-center gap-1.5 px-2.5 py-1 bg-brand-fb/10 text-brand-fb text-xs font-bold rounded-lg border border-brand-fb/20">
+                <i class="fa-solid fa-clapperboard"></i> Facebook Reel
+              </span>
+            </div>
+
+            <!-- Creator Profile Picture & Name Display -->
+            <div id="creatorBox" class="flex items-center gap-3 pt-1">
+              
+              <!-- Real Profile Avatar with Fallback -->
+              <div class="relative w-11 h-11 flex-shrink-0">
+                <img 
+                  id="creatorAvatar" 
+                  src="" 
+                  alt="Creator Avatar" 
+                  class="w-full h-full rounded-full object-cover border-2 border-brand-fb shadow-md hidden" 
+                  onerror="this.classList.add('hidden'); document.getElementById('creatorAvatarFallback').classList.remove('hidden');" 
+                />
+                <div id="creatorAvatarFallback" class="w-full h-full rounded-full bg-slate-900 border border-slate-700 flex items-center justify-center text-brand-fb">
+                  <i class="fa-solid fa-user-check text-lg"></i>
+                </div>
+              </div>
+
+              <div>
+                <h4 id="creatorName" class="font-bold text-white text-base leading-tight">Creator Name</h4>
+                <p class="text-xs text-slate-400 mt-0.5">Facebook Creator</p>
+              </div>
+            </div>
+
+            <!-- Views & Reactions Badges -->
+            <div id="statsRow" class="flex flex-wrap gap-2 pt-1">
+              <span id="statViews" class="inline-flex items-center gap-1.5 px-3 py-1 bg-slate-900/90 border border-slate-800 rounded-lg text-xs font-bold text-cyan-400">
+                <i class="fa-solid fa-eye"></i> <span>0 Views</span>
+              </span>
+              <span id="statReactions" class="inline-flex items-center gap-1.5 px-3 py-1 bg-slate-900/90 border border-slate-800 rounded-lg text-xs font-bold text-pink-400">
+                <i class="fa-solid fa-heart"></i> <span>0 Reactions</span>
+              </span>
+            </div>
+
+            <!-- Clean Video Caption -->
+            <p id="videoCleanTitle" class="text-xs text-slate-400 line-clamp-2 leading-relaxed pt-1"></p>
+          </div>
+
+          <!-- Download Action Buttons -->
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-2">
+            <a 
+              id="dlHdBtn" 
+              href="#" 
+              target="_blank" 
+              class="flex items-center justify-center gap-2 py-3 px-4 rounded-xl font-bold bg-brand-fb hover:bg-blue-600 text-white shadow-lg shadow-brand-fb/20 transition text-sm"
+            >
+              <i class="fa-solid fa-circle-arrow-down text-base"></i> Download HD (1080p)
+            </a>
+            
+            <a 
+              id="dlSdBtn" 
+              href="#" 
+              target="_blank" 
+              class="flex items-center justify-center gap-2 py-3 px-4 rounded-xl font-bold bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-700 transition text-sm"
+            >
+              <i class="fa-solid fa-download text-base"></i> Download SD (Normal)
+            </a>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- Telegram Channel Joining Box -->
+    <div class="relative overflow-hidden rounded-2xl border border-brand-telegram/30 bg-gradient-to-r from-slate-900 via-slate-800 to-slate-900 p-6 md:p-8 shadow-2xl text-center md:text-left">
+      <div class="flex flex-col md:flex-row items-center justify-between gap-6 relative z-10">
+        <div class="flex items-center gap-4">
+          <div class="w-14 h-14 rounded-2xl bg-brand-telegram/20 border border-brand-telegram/40 flex items-center justify-center text-brand-telegram text-3xl flex-shrink-0 shadow-lg shadow-brand-telegram/20">
+            <i class="fa-brands fa-telegram"></i>
+          </div>
+          <div>
+            <h3 class="text-xl font-bold text-white">যুক্ত থাকুন সাইবার বাংলা 24-এ</h3>
+            <p class="text-sm text-slate-300 mt-1">সব নতুন টেকনোলজি আপডেট, টুলস এবং টিপস সবার আগে পেতে আমাদের টেলিগ্রাম চ্যানেলে যোগ দিন।</p>
+          </div>
+        </div>
+        <a 
+          href="https://t.me/CyberBangla24" 
+          target="_blank" 
+          class="flex-shrink-0 inline-flex items-center gap-2.5 px-6 py-3.5 bg-brand-telegram hover:bg-sky-500 text-white font-bold rounded-xl shadow-lg shadow-brand-telegram/30 transition transform hover:-translate-y-0.5 duration-200"
+        >
+          <span>Join Channel</span>
+          <i class="fa-solid fa-arrow-up-right-from-square text-xs"></i>
+        </a>
+      </div>
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer class="border-t border-slate-800 mt-16 py-8 text-center text-xs text-slate-400 bg-slate-950">
+    <div class="max-w-6xl mx-auto px-4 space-y-3">
+      <p class="text-sm">
+        Developed with <i class="fa-solid fa-heart text-brand-fb"></i> by 
+        <a href="https://t.me/CyberBangla24" target="_blank" class="font-bold text-white hover:text-brand-fb transition underline underline-offset-4">সাইবার বাংলা 24</a>
+      </p>
+      <div class="flex items-center justify-center gap-4 text-slate-500 pt-1">
+        <a href="https://t.me/CyberBangla24" target="_blank" class="hover:text-brand-telegram transition flex items-center gap-1.5">
+          <i class="fa-brands fa-telegram text-sm"></i> Telegram: @CyberBangla24
+        </a>
+      </div>
+      <p class="text-slate-600 text-[11px] pt-1">Disclaimer: FBSave Pro is not affiliated with Meta or Facebook.</p>
+    </div>
+  </footer>
+
+  <!-- Core JavaScript -->
+  <script>
+    async function pasteLink() {
+      try {
+        const text = await navigator.clipboard.readText();
+        document.getElementById('fbUrl').value = text;
+      } catch (err) {
+        showError("ক্লিপবোর্ড থেকে নিজে লিংকটি পেস্ট করুন।");
+      }
+    }
+
+    function showError(msg) {
+      const errorBox = document.getElementById('errorBox');
+      errorBox.innerText = msg;
+      errorBox.classList.remove('hidden');
+    }
+
+    function hideError() {
+      document.getElementById('errorBox').classList.add('hidden');
+    }
+
+    // স্মার্ট মেটাডাটা পার্সার
+    function parseFacebookMeta(raw) {
+      if (!raw) return { creator: "Facebook Video", views: null, reactions: null, isReel: false, cleanTitle: "" };
+
+      const txt = document.createElement("textarea");
+      txt.innerHTML = raw;
+      let decoded = txt.value.trim();
+
+      const isReel = /on Reels/i.test(decoded) || /Reels/i.test(decoded);
+
+      const viewsMatch = decoded.match(/([\d\.]+[KMB]?)\s*views/i);
+      const views = viewsMatch ? viewsMatch[1] + " Views" : null;
+
+      const reactMatch = decoded.match(/([\d\.]+[KMB]?)\s*(?:reactions|likes)/i);
+      const reactions = reactMatch ? reactMatch[1] + " Reactions" : null;
+
+      let creator = null;
+      if (decoded.includes("|")) {
+        const parts = decoded.split("|");
+        let right = parts[1].trim();
+        right = right.replace(/\s*on Reels$/i, "").replace(/\s*on Facebook$/i, "").trim();
+        creator = right;
+      } else {
+        creator = decoded.replace(/\s*on Reels$/i, "").trim();
+      }
+
+      let clean = decoded.replace(/[\d\.]+[KMB]?\s*views/gi, '')
+                         .replace(/·/g, '')
+                         .replace(/[\d\.]+[KMB]?\s*reactions/gi, '')
+                         .replace(/[\d\.]+[KMB]?\s*likes/gi, '')
+                         .replace(/\|/g, '')
+                         .replace(/on Reels/gi, '')
+                         .replace(/\s+/g, ' ')
+                         .trim();
+
+      return {
+        creator: creator || clean || "Facebook Creator",
+        views: views,
+        reactions: reactions,
+        isReel: isReel,
+        cleanTitle: clean
+      };
+    }
+
+    async function startDownloadProcess() {
+      const urlInput = document.getElementById('fbUrl');
+      const url = urlInput.value.trim();
+      const loadingBox = document.getElementById('loadingBox');
+      const resultCard = document.getElementById('resultCard');
+      const fetchBtn = document.getElementById('fetchBtn');
+      const videoPreview = document.getElementById('videoPreview');
+
+      hideError();
+      resultCard.classList.add('hidden');
+      videoPreview.pause();
+      videoPreview.src = "";
+
+      if (!url) {
+        showError("দয়া করে একটি সঠিক ফেসবুক ভিডিও বা রিলস এর লিংক দিন!");
+        return;
+      }
+
+      if (!url.includes('facebook.com') && !url.includes('fb.watch') && !url.includes('fb.gg') && !url.includes('fb.me')) {
+        showError("এটি একটি সঠিক Facebook ভিডিওর লিংক নয়। আবার চেষ্টা করুন।");
+        return;
+      }
+
+      loadingBox.classList.remove('hidden');
+      fetchBtn.disabled = true;
+      fetchBtn.classList.add('opacity-50', 'cursor-not-allowed');
+
+      try {
+        const apiUrl = `https://facebook-video.goldmail6a.workers.dev/?url=${encodeURIComponent(url)}`;
+        const response = await fetch(apiUrl);
+        const data = await response.json();
+
+        if (data && data.success) {
+          const hdLink = data.video_quality?.hd || data.download_url;
+          const sdLink = data.video_quality?.sd || data.download_url;
+
+          const parsed = parseFacebookMeta(data.title);
+
+          document.getElementById('creatorName').innerText = parsed.creator;
+          document.getElementById('contentTypeBadge').innerHTML = parsed.isReel ? 
+            '<i class="fa-solid fa-clapperboard"></i> Facebook Reel' : 
+            '<i class="fa-solid fa-video"></i> Facebook Video';
+
+          // আসল প্রোফাইল পিকচার সেট করা
+          const avatarImg = document.getElementById('creatorAvatar');
+          const avatarFallback = document.getElementById('creatorAvatarFallback');
+
+          if (data.avatar) {
+            avatarImg.src = data.avatar;
+            avatarImg.classList.remove('hidden');
+            avatarFallback.classList.add('hidden');
+          } else {
+            avatarImg.classList.add('hidden');
+            avatarFallback.classList.remove('hidden');
+          }
+
+          // ভিউ ও রিঅ্যাকশন ব্যাজ
+          const viewsBadge = document.getElementById('statViews');
+          if (parsed.views) {
+            viewsBadge.innerHTML = `<i class="fa-solid fa-eye"></i> <span>${parsed.views}</span>`;
+            viewsBadge.classList.remove('hidden');
+          } else {
+            viewsBadge.classList.add('hidden');
+          }
+
+          const reactsBadge = document.getElementById('statReactions');
+          if (parsed.reactions) {
+            reactsBadge.innerHTML = `<i class="fa-solid fa-heart"></i> <span>${parsed.reactions}</span>`;
+            reactsBadge.classList.remove('hidden');
+          } else {
+            reactsBadge.classList.add('hidden');
+          }
+
+          document.getElementById('videoCleanTitle').innerText = parsed.cleanTitle;
+
+          // ভিডিও প্রিভিউ লোড
+          videoPreview.src = hdLink || sdLink;
+
+          // ডাউনলোড বাটন লিংক
+          document.getElementById('dlHdBtn').href = hdLink;
+          document.getElementById('dlSdBtn').href = sdLink;
+
+          resultCard.classList.remove('hidden');
+          resultCard.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        } else {
+          showError(data.message || "ভিডিওটির ডাউনলোড লিংক পাওয়া যায়নি। ভিডিওটি পাবলিক কিনা তা দেখে নিন।");
+        }
+      } catch (err) {
+        showError("API-এর সাথে যোগাযোগ করতে সমস্যা হয়েছে। দয়া করে কিছুক্ষণ পর আবার চেষ্টা করুন।");
+      } finally {
+        loadingBox.classList.add('hidden');
+        fetchBtn.disabled = false;
+        fetchBtn.classList.remove('opacity-50', 'cursor-not-allowed');
+      }
+    }
+  </script>
+</body>
+</html>
